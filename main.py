@@ -66,7 +66,7 @@ class Spider(scrapy.Spider):
             quote = el.xpath('span[@class="text"]/text()').get().strip()
             author = el.xpath('span/small[@class="author"]/text()').get().strip()
             tags = el.xpath('div[@class="tags"]/a[@class="tag"]/text()').extract()
-            yield QuoteItem(quote=quote, author=author, tags=tags)
+            yield QuoteItem(author=author, quote=quote, tags=tags)
             yield response.follow(url=self.start_urls[0] + el.xpath('span/a/@href').get(), callback=self.parse_author)
 
         next_link = response.xpath('/html//li[@class="next"]/a/@href').get()
